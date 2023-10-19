@@ -14,6 +14,7 @@ public class TourDtoRes {
     private String location;
     private String guide;
     private String duration;
+    private Double price;
     private String description;
     private Set<Image> images;
 
