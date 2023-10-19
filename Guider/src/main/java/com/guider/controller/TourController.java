@@ -1,5 +1,7 @@
 package com.guider.controller;
 
+import com.guider.dtos.req.TourDtoReq;
+import com.guider.dtos.res.TourDtoRes;
 import com.guider.persistence.entity.Tour;
 import com.guider.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,24 +18,28 @@ public class TourController {
     private TourService tourService;
 
     @GetMapping()
-    public ResponseEntity<List<Tour>> listAll() {
-        List<Tour> list = tourService.list();
+    public ResponseEntity<List<TourDtoRes>> listAll() {
+        List<TourDtoRes> list = tourService.listAll();
         return ResponseEntity.status(HttpStatus.OK).body(list);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<?> findTour(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(tourService.find(id));
+    public ResponseEntity<TourDtoRes> findTour(@PathVariable Long id) {
+        TourDtoRes tourFounded = tourService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(tourFounded);
     }
 
     @PostMapping()
-    public ResponseEntity<Tour> saveTour(@RequestBody Tour tour) {
-        Tour newTour = tourService.save(tour);
+    public ResponseEntity<TourDtoRes> saveTour(@RequestBody TourDtoReq tour) {
+        TourDtoRes newTour = tourService.save(tour);
         return ResponseEntity.status(HttpStatus.CREATED).body(newTour);
     }
 
+    //TODO PutMapping
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Tour> deleteTour(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(tourService.delete(id));
+    public ResponseEntity<TourDtoRes> deleteTour(@PathVariable Long id) {
+        TourDtoRes deletedTour = tourService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body(deletedTour);
     }
 
     
