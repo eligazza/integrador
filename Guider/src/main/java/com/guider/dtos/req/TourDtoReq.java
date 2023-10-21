@@ -1,6 +1,6 @@
 package com.guider.dtos.req;
 
-import com.guider.persistence.entity.Image;
+//import com.guider.persistence.entity.Image;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +16,6 @@ public class TourDtoReq {
     private String duration;
     private Double price;
     private String description;
-    private Set<Image> images;
+//    private Set<Image> images;
 
 }

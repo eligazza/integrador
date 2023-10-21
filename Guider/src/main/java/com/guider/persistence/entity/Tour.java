@@ -1,9 +1,6 @@
 package com.guider.persistence.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,13 +12,20 @@ public class Tour {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private String name;
+    @Column
     private String location;
+    @Column
     private String guide;
+    @Column
     private String duration;
+    @Column
     private Double price;
+    @Column
     private String description;
-    private Set<Image> images;
+//    @Column
+//    private Set<Image> images;
 
 }
 
