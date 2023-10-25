@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 @Entity @Setter @Getter @NoArgsConstructor
 public class Tour {
@@ -24,8 +25,9 @@ public class Tour {
     private Double price;
     @Column
     private String description;
-//    @Column
-//    private Set<Image> images;
+    @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TourImage> images;
+
 
 }
 
