@@ -9,9 +9,6 @@
     align-items: center;
     padding: 10px 20px; 
     z-index: 100;   
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
   }
   
   .footerleft {
@@ -24,12 +21,10 @@
   
     img {
       width: 60px; 
-      margin-right: 10px;
-      
-    max-width: 50px;
+      margin-right: 10px;      
+      max-width: 50px;
     }
   }
-
 
   .logo {
     max-width: 50px;

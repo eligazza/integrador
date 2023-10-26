@@ -9,8 +9,8 @@ const Header = () => {
         <Link to="/">
           <img src="/images/Logo.png" alt="Logo de la empresa" className={styles.logo}/>
         </Link>
-        <span>Lema de la empresa</span>
-      </div>
+        <span className={styles.lema}>Tu viaje, tu aventura!</span>
+      </div>   
       <div className={styles.headerright}>
         <Link to="/registro">
           <button className={styles.registrobutton}>Crear cuenta</button>

@@ -7,46 +7,63 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px; 
-    z-index: 100;   
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
+    z-index: 100;
+    min-height: 90px;
+    padding: 0 12px
   }
   
   .headerleft {
     display: flex;
     align-items: center;
-  
-    a {
-      text-decoration: none;
-    }
-  
-    img {
-      width: 60px; 
-      margin-right: 10px;
-      
-    max-width: 50px;
-    }
+  }
+
+  .lema {
+    max-width: 20%;
   }
   
   .headerright {
-    button {
-      margin-left: 10px; 
-    }
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
   }
 
   .registrobutton {
     background-color: #E06A00;
+    color: #FFFFFF;
+    font-size:.7rem;
     border: none;
+    min-width: 95px;
+    padding: 15px 8px;
+    border-radius: 100px;
+    margin-right: 10px;    
   }
 
   .loginbutton {
     background-color: #06A77D;
+    color: #FFFFFF;
+    font-size:.7rem;
     border: none;
+    min-width: 95px;
+    padding: 15px 7px;
+    border-radius: 100px;
   }
 
 
   .logo {
-    max-width: 50px;
+    max-width: 100px;
+  }
+
+
+
+  @media (min-width: 768px) {
+   
+    .headerleft {
+      min-width:50%;
+    }
+
+    .lema {
+      max-width: 70%;
+      margin-left: 25px;
+    }
+
   }
