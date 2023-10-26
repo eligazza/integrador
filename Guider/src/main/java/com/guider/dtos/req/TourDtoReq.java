@@ -1,12 +1,9 @@
 package com.guider.dtos.req;
 
-//import com.guider.persistence.entity.Image;
-//import com.guider.persistence.entity.TourImage;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Set;
 
 @Getter @Setter
 public class TourDtoReq {

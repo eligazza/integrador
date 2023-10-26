@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Set;
 @Entity @Setter @Getter @NoArgsConstructor
 public class Tour {
 
@@ -18,7 +17,7 @@ public class Tour {
     @Column
     private String location;
     @Column
-    private String guide;
+    private Long guide;
     @Column
     private String duration;
     @Column

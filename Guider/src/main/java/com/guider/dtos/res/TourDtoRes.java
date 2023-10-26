@@ -1,12 +1,9 @@
 package com.guider.dtos.res;
 
-//import com.guider.persistence.entity.Image;
-//import com.guider.persistence.entity.TourImage;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Set;
 
 @Getter @Setter
 public class TourDtoRes {
@@ -19,6 +16,6 @@ public class TourDtoRes {
     private Double price;
     private String description;
     private Double rating;
-   private List<String> images;
+    private List<String> images;
 
 }
