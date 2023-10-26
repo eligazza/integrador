@@ -6,6 +6,9 @@ const PanelAdmin = () => {
     <div>
         <Header/>
         <h1>Panel Admin</h1>
+        <button>Crear Tour</button>
+        <button>Listar Tour</button>
+        <button>Eliminar Tour</button>
         <Footer/>
     </div>
   )
