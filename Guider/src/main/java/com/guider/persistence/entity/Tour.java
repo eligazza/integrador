@@ -23,10 +23,12 @@ public class Tour {
     private String duration;
     @Column
     private Double price;
-    @Column
+    @Column(length = 5000)
     private String description;
-    @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TourImage> images;
+    @Column
+    private Double rating;
+    @Column
+    private List<String> images;
 
 
 }
