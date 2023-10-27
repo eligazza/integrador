@@ -27,7 +27,7 @@ public class TourService implements IService<TourDtoReq, TourDtoRes>{
     
     // LISTAR
     public List<TourDtoRes> listAll() throws NoContentException {
-        if (tourRepository.findAll().size() == 0) {
+        if (tourRepository.findAll().isEmpty() || tourRepository.findAll().size() == 0) {
             throw new NoContentException("No resources found");
         } else {
             return tourRepository.findAll()
@@ -98,9 +98,9 @@ public class TourService implements IService<TourDtoReq, TourDtoRes>{
             throw new InvalidArgumentException("Keep your description short: 5000 characters or less");
         } else if (t.getPrice() == null || t.getPrice() < 1) {
             throw new InvalidArgumentException("Please, specify a valid price");
-        } else if (t.getRating() == null || t.getRating() < 1) {
-            throw new InvalidArgumentException("Please, specify a valid rating: from 1 to 5");
-        }
+        } //else if (t.getRating() == null || t.getRating() < 1) {
+            //throw new InvalidArgumentException("Please, specify a valid rating: from 1 to 5");
+        //}
     }
 
 }
