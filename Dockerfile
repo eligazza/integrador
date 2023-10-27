@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as the base image
-FROM node:18.14-alpine
+FROM node:14
 
 # Set the working directory in the container
 WORKDIR /app
@@ -7,17 +7,17 @@ WORKDIR /app
 # Copy package.json and package-lock.json to the container
 COPY package*.json ./
 
-# Install app dependencies
+# Install project dependencies
 RUN npm install
 
-# Copy all app files to the container
+# Copy the entire project directory into the container
 COPY . .
 
-# Build the React app (replace with the appropriate Vite build command)
+# Build your React app
 RUN npm run build
 
-# Expose a port (e.g., 80)
-EXPOSE 80
+# Expose a port if your React app runs on a specific port
+EXPOSE 5173
 
-# Define the command to run your app
-CMD [ "npm", "run", "dev" ]
+# Define the command to run your application
+CMD ["npm", "run", "dev"]
