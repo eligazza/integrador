@@ -1,4 +1,3 @@
-{\rtf1}
 **PROYECTO INTEGRADOR CTD**
 
 Este repositorio corresponde al proyecto final integrador para la carrera Certified Tech Developer del equipo 2, camada 5 (Oct-Dic 2023).
