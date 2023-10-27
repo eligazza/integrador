@@ -166,6 +166,7 @@ const Home = () => {
           {favoriteTours.map((tour) => (
             <CardFavorite
               key={tour.id}
+              id={tour.id}
               title={tour.name}
               price={tour.price}
               location={tour.location}
@@ -183,6 +184,7 @@ const Home = () => {
             .map((tour) => (
               <Card
                 key={tour.id}
+                id={tour.id}
                 title={tour.name}
                 price={tour.price}
                 location={tour.location}

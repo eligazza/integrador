@@ -16,7 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="admin/panel" element={<PanelAdmin />} />
         <Route path="admin/cargar" element={<CargarTour />} />
-        <Route path="producto/id" element={<DetalleProducto />} />
+        <Route path="producto/:id" element={<DetalleProducto />} />
         <Route path="registro" element={<CrearCuenta />} />
         <Route path="login" element={<Login />} />
       </Routes>

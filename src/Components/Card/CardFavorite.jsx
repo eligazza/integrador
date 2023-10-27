@@ -1,16 +1,29 @@
 import React from "react";
 import { Card as Cards, CardBody, Image } from "@nextui-org/react";
 import { Chip } from "@nextui-org/react";
+import { Link } from "react-router-dom";
 
-const Card = ({ title, price, location, rating, images }) => {
+const Card = ({ id, title, price, location, rating, images }) => {
+
+  const event = ({id, title, price, location, rating, images}) => {
+
+    return(
+      <>
+      <DetalleProducto id={id} title={title} price={price} location={location} rating={rating} images={images}/>
+      </>
+    )
+  }
+
   return (
     <Cards className="w-[320px] h-[175px] bg-[#06A77D] rounded-[16px]">
       <div className="grid grid-cols-5	">
+      <Link to={`/producto/${id}`} onClick={event}>
         <img
           alt="Album cover"
           className="object-cover h-full col-span-2"
           src={images}
         />
+        </Link>
 
         <div className=" col-span-3 flex flex-col justify-evenly text-center py-4">
           <h4 className="font-bold text-[12px] w-4/5 text-white self-center ">{title}</h4>
