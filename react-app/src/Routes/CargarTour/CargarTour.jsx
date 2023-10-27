@@ -4,7 +4,7 @@ import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import { Input, Textarea } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
-import { category, countries, list } from "/public/data";
+import { category, countries, list } from "./data.jsx";
 import { useForm } from 'react-hook-form';
 import { uploadCloudinary } from "../../uploadCloudinary";
 import axios from "axios";

@@ -4,7 +4,7 @@ import Footer from "../../Components/Footer/Footer";
 import Card from "../../Components/Card/Card";
 import CardFavorite from "../../Components/Card/CardFavorite";
 import { Input } from "@nextui-org/react";
-import { countries, category, list, tours } from "/public/data.jsx";
+import { countries, category, list, tours } from "./data";
 import { Select, SelectItem } from "@nextui-org/react";
 import { Pagination, Button, Image } from "@nextui-org/react";
 
