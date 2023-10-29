@@ -5,24 +5,24 @@ import { Link } from "react-router-dom";
 
 const Card = ({ id, title, price, location, rating, images }) => {
 
-  const event = ({id, title, price, location, rating, images}) => {
-
+  const handleClick = (id, title) => {
     return(
       <>
-      <DetalleProducto id={id} title={title} price={price} location={location} rating={rating} images={images}/>
-      </>
+    <DetalleProducto id={id} title={title}/>
+    </>
     )
-  }
+  }    
 
   return (
     <Cards className="w-[320px] h-[175px] bg-[#06A77D] rounded-[16px]">
       <div className="grid grid-cols-5	">
-      <Link to={`/producto/${id}`} onClick={event}>
+      <Link to={`/producto/${id}`} onClick={({id, title}) => {handleClick(id, title)}} >
         <img
           alt="Album cover"
           className="object-cover h-full col-span-2"
           src={images}
         />
+        
         </Link>
 
         <div className=" col-span-3 flex flex-col justify-evenly text-center py-4">

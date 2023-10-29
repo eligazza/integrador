@@ -73,7 +73,9 @@ export const tours = [
   {
     id: "2",
     name: "Tour en Cafayate + Cachi + Humahuaca",
+    guide: "Stephan Tamayo",
     location: "Cafayate",
+    category: "3",
     duration: "3 días",
     price: "$107.312",
     rating : "5",
@@ -89,7 +91,9 @@ export const tours = [
   {
     id: "3",
     name: "Espectáculo de tango en Teatro Astor Piazzolla",
+    guide: "Juan De Las Artes",
     location: "Buenos Aires",
+    category: "4",
     duration: "2 horas y 30 minutos",
     price: "$17.417",
     rating : "5",
@@ -105,6 +109,8 @@ export const tours = [
   {
     id: "4",
     name: "Balcones de Calafate 4x4, Zipline o Trekking",
+    guide: "Carlos Antanilla",
+    category: "2",
     location: "El Calafate",
     duration: "4 horas",
     price: "$49.849",
@@ -121,6 +127,8 @@ export const tours = [
   {
     id: "5",
     name: "Museu do Amanhã, AquaRio y Bulevar Olímpico",
+    guide: "Sandy Paola Vela",
+    category: "10",
     location: "Río de Janeiro",
     duration: "4 horas",
     price: "$28.421",
@@ -137,6 +145,8 @@ export const tours = [
   {
     id: "6",
     name: "Visita al Parque de las Aves",
+    guide: "Daniel Zippa",
+    category: "10",
     location: "Iguazú",
     duration: "3 horas y 30 minutos",
     price: "$28.421",
@@ -153,7 +163,9 @@ export const tours = [
   {
     id: "7",
     name: "Aventura en la selva amazónica",
+    guide: "Efran Gomez",
     location: "Amazonas",
+    category: "4",
     duration: "5 días",
     price: "$2,500",
     rating: "4.8",
@@ -169,6 +181,8 @@ export const tours = [
   {
     id: "8",
     name: "Recorrido gastronómico en Lima",
+    guide: "Jaime Yupanqui",
+    category: "5",
     location: "Lima",
     duration: "1 día",
     price: "$150",
@@ -184,8 +198,10 @@ export const tours = [
   },
   {
     id: "9",
+    guide: "Estrella Manrique",
     name: "Paseo en globo sobre el Valle de Colchagua",
     location: "Colchagua",
+    category: "4",
     duration: "3 horas",
     price: "$300",
     rating: "4.7",
@@ -200,8 +216,10 @@ export const tours = [
   },
   {
     id: "10",
+    guide: "Esteban Ruiz",
     name: "Exploración de la Ciudad Perdida",
     location: "Santa Marta",
+    category: "8",
     duration: "4 días",
     price: "$1,800",
     rating: "4.6",
@@ -217,6 +235,8 @@ export const tours = [
   {
     id: "11",
     name: "Tour de vinos en Valle de Casablanca",
+    guide: "Estrella Manquire",
+    category: "6",
     location: "Valle de Casablanca",
     duration: "1 día",
     price: "$120",
@@ -233,6 +253,8 @@ export const tours = [
   {
     id: "12",
     name: "Aventura de espeleología en cuevas de Patagonia",
+    guide: "Juan Lazo",
+    category: "12",
     location: "Patagonia",
     duration: "2 días",
     price: "$700",
@@ -249,6 +271,8 @@ export const tours = [
   {
     id: "13",
     name: "Safari fotográfico en Serengeti",
+    guide: "Alejandro Sancruz",
+    category: "8",
     location: "Serengeti",
     duration: "7 días",
     price: "$3,500",
@@ -264,6 +288,8 @@ export const tours = [
   },
   {
     id: "14",
+    guide: "Andrés Cristancho",
+    category: "12",
     name: "Recorrido arqueológico en Machu Picchu",
     location: "Cusco",
     duration: "2 días",
@@ -280,7 +306,9 @@ export const tours = [
   },
   {
     id: "15",
+    guide: "Duvan Valverna",
     name: "Aventura de buceo en la Gran Barrera de Coral",
+    category: "16",
     location: "Australia",
     duration: "3 días",
     price: "$1,200",
@@ -296,7 +324,9 @@ export const tours = [
   },
   {
     id: "16",
+    guide: "David San Marco",
     name: "Ruta del vino en Napa Valley",
+    category: "5",
     location: "Napa Valley",
     duration: "1 día",
     price: "$180",
@@ -312,7 +342,9 @@ export const tours = [
   },
   {
     id: "17",
+    guide: "Julia de Vega",
     name: "Crucero en mar de las pompas",
+    category: "Aire Libre",
     location: "Nunca Jamas",
     duration: "2 día",
     price: "$1523",
