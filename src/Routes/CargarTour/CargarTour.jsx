@@ -4,7 +4,7 @@ import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import { Input, Textarea } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
-import { category, countries, list } from "/public/data";
+import { category, countries, list } from "../../dataTest/data";
 import { useForm } from 'react-hook-form';
 import { uploadCloudinary } from "../../uploadCloudinary";
 import axios from "axios";
@@ -21,7 +21,7 @@ const CargarTour = () => {
   const [url, setUrl] = useState("");
 
   
-
+  console.log(images)
 
   const {
     register,
@@ -49,7 +49,7 @@ const CargarTour = () => {
       console.log(url);
 
       // Use the fetch API for the POST request
-      fetch("http://localhost:8080/tour", {
+      fetch("http://localhost:3000/tour", {
         method: "POST",
         body: JSON.stringify(form),
         headers: {
@@ -69,7 +69,7 @@ const CargarTour = () => {
   };
 
   return (
-    <>
+    <div className='h-screen flex flex-col justify-between'>
       <Header />
       <form onSubmit={handleSubmit(tourSubmit)}>
         <div className=" hidden lg:flex flex-col p-10 gap-12">
@@ -217,6 +217,7 @@ const CargarTour = () => {
                 }}
               />
               <h2 className="text-[#B185A8]">Imagenes</h2>
+              {/*
               <div className="flex gap-10">
                 {list.map((item, index) => (
                   <Card shadow="sm" key={index} className="w-96">
@@ -252,7 +253,7 @@ const CargarTour = () => {
               </div>
               <Button  color="danger" size="sm">
                 Agregar imagenes
-              </Button>
+              </Button>*/}
               <input
           
             type="file"
@@ -262,14 +263,14 @@ const CargarTour = () => {
           />
             </div>
           </div>
-          <Button type="submit" color="danger" size="sm">
+          <Button type="submit" size="sm" className="w-[50px] self-center bg-[#E06A00] text-white">
             Subir Tour
           </Button>
         </div>
       </form>
       <h1 className=" lg:hidden text-center text-[#B185A8] px-10">Ups!. Debe estar en una PC o Notebook para cargar su tour</h1>
       <Footer />
-    </>
+    </div>
   );
 };
 

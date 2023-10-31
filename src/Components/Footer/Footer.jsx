@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
-import styles from './footer.module.css'
+
 
 const Footer = () => {
   return (
-    <footer className={styles.appfooter}>
-      <div className={styles.footerleft}>
+    <footer className='h-[65px] bg-[#aaaaaa] flex justify-between px-8 ' >
+      <div className='flex gap-2'>
         <Link to="/">
-          <img src="/images/Logo.png" alt="Logo de la empresa" className={styles.logo}/>
+          <img src="/images/Logo.png" alt="Logo de la empresa"  className='h-[45px] object-fit'/>
         </Link>
         <span>Copyright , 2023, Digital House</span>
       </div>
-      <div className={styles.footerright}>   
+      <div>   
         <p>Logos de Redes Sociales</p>
       </div>
     </footer>

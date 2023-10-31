@@ -1,13 +1,14 @@
 import React from "react";
 import { Card as Cards, CardBody, Image } from "@nextui-org/react";
 
-const Card = ({ title, price, location, rating, images }) => {
+
+const Card = ({ title, price, location, rating, images, url }) => {
   return (
-    <Cards className="w-40 h-52 bg-[#F9F3DB] rounded-[17px]">
+    <Cards isPressable className="w-40 h-52 bg-[#F9F3DB] rounded-[17px]" onPress={() => console.log(key)} key={url}>
       <Image
         alt="Card background"
         radius="none"
-        className="w-full object-cover h-[98px]  "
+        className="w-40 object-cover h-[98px]  "
         src={images}
         width="100%"
       />

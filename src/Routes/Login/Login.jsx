@@ -1,12 +1,13 @@
 import React from 'react'
 import Header from '../../Components/Header/Header'
 import Footer from '../../Components/Footer/Footer';
+import LogIn from '../../Components/auth/logIn';
 
 const Login = () => {
   return (
-    <div>
+    <div className='h-screen flex flex-col justify-between '>
         <Header/>
-        <h1>Login</h1>
+        <LogIn/>
         <Footer/>
     </div>
   )

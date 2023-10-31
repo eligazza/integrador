@@ -1,14 +1,14 @@
 import React from 'react'
 import Header from '../../Components/Header/Header'
 import Footer from '../../Components/Footer/Footer';
-const PanelAdmin = () => {
+const Perfil = () => {
   return (
     <div className='h-screen flex flex-col justify-between'>
         <Header/>
-        <h1>Panel Admin</h1>
+        <h1>Perfil</h1>
         <Footer/>
     </div>
   )
 }
 
-export default PanelAdmin
+export default Perfil
