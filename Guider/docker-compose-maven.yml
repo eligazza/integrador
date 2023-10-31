@@ -5,8 +5,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: 1023c05-GRUPO2
-      MYSQL_USER: $MYSQL_USER
-      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_USER: 1023c05_GRUPO2
+      MYSQL_PASSWORD: aife4Phu
     ports:
       - "3306:3306"
     networks:

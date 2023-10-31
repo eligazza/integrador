@@ -1,23 +1,36 @@
-# Use an official Node.js runtime as the base image
-FROM node:14
+# Use an official Node.js runtime as a parent image
+FROM node:14 AS builder
 
 # Set the working directory in the container
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the container
-COPY package*.json ./
+COPY ./react-app/package*.json ./
 
 # Install project dependencies
 RUN npm install
 
-# Copy the entire project directory into the container
-COPY . .
+# Copy the rest of the application files to the container
+COPY ./react-app/ ./
 
-# Build your React app
+# Build the React app for production
 RUN npm run build
 
-# Expose a port if your React app runs on a specific port
-EXPOSE 4173
+# Use a lightweight Nginx image as the final base image
+FROM nginx:1.21
 
-# Define the command to run your application
-CMD ["npm", "run", "preview"]
+# Remove the default Nginx configuration
+RUN rm -v /etc/nginx/nginx.conf
+
+# Copy the custom Nginx configuration
+COPY ./nginx.conf /etc/nginx/
+
+# Copy the built React app files from the builder stage
+COPY --from=builder /app/build /usr/share/nginx/html
+
+# Expose port 80 for the web server
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
+
