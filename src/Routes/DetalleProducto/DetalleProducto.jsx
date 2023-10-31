@@ -23,7 +23,7 @@ const DetalleProducto = () => {
     navigate(-1);
   };
 
-  /*const setFavorite= () => { 
+  const setFavorite= () => { 
     index_fav[1] = fav; 
     if(index_fav[1]==1){
       setFav([2, 3, 1])
@@ -39,7 +39,7 @@ const DetalleProducto = () => {
 
   const outFavorite = () => {
     setFav([3,2,1])    
-  }*/
+  }
 
   /*useEffect(()=> {
     setFavorite()    
@@ -123,7 +123,7 @@ const DetalleProducto = () => {
               alt="Card background"
               radius="none"
               className=" w-[20rem] self-center m-20 "
-              src={guide?.images[0]}
+              src={guide[0]?.images[0]}
               width="100%"
             />
           </div>
@@ -132,8 +132,9 @@ const DetalleProducto = () => {
             <div className="flex-initial">
             <button
                 className="justify-item-center font-montserrat text-[24px] font-light"
-                onClick={()=>setFavorite()}
-              > 
+                onClick={()=>setIndex_fav((index_fav)=> index_fav+1)}
+              >
+                counted {index_fav} 
               <img
                 src="/images/angulo-izquierdo1.svg"
                 alt="Back late"
@@ -143,10 +144,10 @@ const DetalleProducto = () => {
             </div>
             <div className="flex-initial">
             <img
-              alt="Card background"
+              alt="Card bac  kground"
               radius="none"
               className=" w-[10rem] rounded-3xl m-4 bg-gradient-to-r from-inherit "
-              src={guide?.images[1]}
+              src={guide[0]?.images[1]}
               width="100%"
             />
             </div>
@@ -155,7 +156,7 @@ const DetalleProducto = () => {
               alt="Card background"
               radius="none"
               className=" w-[15rem] rounded-3xl m-4 "
-              src={guide?.images[2]}
+              src={guide[0]?.images[2]}
               width="100%"
             />
             </div>
@@ -164,15 +165,16 @@ const DetalleProducto = () => {
               alt="Card background"
               radius="none"
               className=" w-[10rem] rounded-3xl m-4 bg-gradient-to-r from-inherit"
-              src={guide?.images[3]}
+              src={guide[0]?.images[3]}
               width="100%"
-            />
+            />   
             </div>
             <div className="flex-initial">
                <button
                 className="justify-item-center font-montserrat text-[24px] font-light"
-                onClick={()=>setFavorite()}
+                onClick={()=>setFavorite((index_fav)=> index_fav-1)}
                 > 
+                Counter {index_fav}
                 <img
                   src="/images/angulo-izquierdo2.svg"
                   alt="Back late"

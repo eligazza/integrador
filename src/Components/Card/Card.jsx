@@ -7,18 +7,9 @@ const Card = ({id, title, price, location, rating, images }) => {
 
   // <DetalleProducto id={id} title={title} price={price} location={location} rating={rating} images={images}/>}
 
-  const event = ({id, title, price, location, rating, images}) => {
-
-    return(
-      <>
-      <DetalleProducto id={id} title={title} price={price} location={location} rating={rating} images={images}/>
-      </>
-    )
-  }
-
-  return (
+   return (
     <Cards className="w-40 h-52 bg-[#F9F3DB] rounded-[17px]">
-      <Link to={`/producto/${id}`} onClick={event}>
+      <Link to={`/producto/${id}`}>
         <Image
           alt="Card background"
           radius="none"
