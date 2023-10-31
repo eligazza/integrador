@@ -12,24 +12,44 @@ const DetalleProducto = () => {
   const [guide, setGuides] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [fav, setFav] = useState([1,2,3])
+  const [index_fav, setIndex_fav] = useState(1);
 
-  let index=0; 
+
+  let index =1; 
+
 
   const goBack = () => {
     navigate(-1);
   };
 
-  function miEvento(favoriteTours) {
-    setGuides(favoriteTours);
+  /*const setFavorite= () => { 
+    index_fav[1] = fav; 
+    if(index_fav[1]==1){
+      setFav([2, 3, 1])
+      setIndex_fav(2)
+    }else if(index_fav[2]==2){
+      setFav(3,1,2)
+      setIndex_fav(3)
+    }else{
+      setFav([1,2,3])
+      setIndex_fav(1);
+    }
   }
+
+  const outFavorite = () => {
+    setFav([3,2,1])    
+  }*/
+
+  /*useEffect(()=> {
+    setFavorite()    
+  })*/
 
   useEffect(() => {
     setLoading(false);
-
-    console.log(parseInt(window.location.href.slice(-2).split("/")))
-    index = parseInt(window.location.href.slice(-1).split("/"))|| 0;
+    index = parseInt(window.location.href.slice(-2).replace(/[^a-zA-Z0-9 ]/g, ''));
     setGuides(favoriteTours[index])
-    miEvento(favoriteTours[index]);
+    //miEvento(favoriteTours[index]);
     /*fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
         .then((response) => response.json())
         .then((data)=>{
@@ -82,7 +102,7 @@ const DetalleProducto = () => {
               </button>
             </div>
           </div>
-          <div className="flex px-8 justify-between">
+          <div className="flex px-8 justify-between ">
             <div className="flex">
               <img
                 src="/images/location_1.svg"
@@ -102,10 +122,64 @@ const DetalleProducto = () => {
             <img
               alt="Card background"
               radius="none"
-              className=" w-[20rem] "
-              src={"https://picsum.photos/id/10/800/1200"}
+              className=" w-[20rem] self-center m-20 "
+              src={guide?.images[0]}
               width="100%"
             />
+          </div>
+          <div className="flex  justify-center">
+
+            <div className="flex-initial">
+            <button
+                className="justify-item-center font-montserrat text-[24px] font-light"
+                onClick={()=>setFavorite()}
+              > 
+              <img
+                src="/images/angulo-izquierdo1.svg"
+                alt="Back late"
+                className="justify-item-center flex text-94 w-[4rem] pt-[6rem]"
+              />
+              </button>
+            </div>
+            <div className="flex-initial">
+            <img
+              alt="Card background"
+              radius="none"
+              className=" w-[10rem] rounded-3xl m-4 bg-gradient-to-r from-inherit "
+              src={guide?.images[1]}
+              width="100%"
+            />
+            </div>
+            <div className="flex-initial">
+            <img
+              alt="Card background"
+              radius="none"
+              className=" w-[15rem] rounded-3xl m-4 "
+              src={guide?.images[2]}
+              width="100%"
+            />
+            </div>
+            <div className="flex-initial">
+            <img
+              alt="Card background"
+              radius="none"
+              className=" w-[10rem] rounded-3xl m-4 bg-gradient-to-r from-inherit"
+              src={guide?.images[3]}
+              width="100%"
+            />
+            </div>
+            <div className="flex-initial">
+               <button
+                className="justify-item-center font-montserrat text-[24px] font-light"
+                onClick={()=>setFavorite()}
+                > 
+                <img
+                  src="/images/angulo-izquierdo2.svg"
+                  alt="Back late"
+                  className="justify-item-center flex text-94 w-[4rem] pt-[6rem]"
+                />
+              </button>
+            </div>
           </div>
           <div className="flex py-10 flex-row justify-between mx-8">
             <div>
