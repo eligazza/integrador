@@ -3,8 +3,8 @@ services:
   react_app:
     biuld:
       context: .
-      dockerfile: Dockerfile.react
-    volumes: ./your-react-app:/react-app
+      dockerfile: ./react-app/Dockerfile.react
+    volumes: ./react-app:/react-app
     ports:
       - "3000:3000"
     networks:

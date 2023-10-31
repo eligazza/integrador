@@ -15,7 +15,7 @@ services:
   maven_app:
     build:
       context: .
-      dockerfile: Dockerfile.maven
+      dockerfile: ./Guider/Dockerfile.maven
     volumes:
       - ./Guider:/app
     networks:
