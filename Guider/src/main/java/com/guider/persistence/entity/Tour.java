@@ -26,7 +26,7 @@ public class Tour {
     private String description;
     @Column
     private Double rating;
-    @Column
+    @Column(columnDefinition = "varbinary(2048)")
     private List<String> images;
 
 

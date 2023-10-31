@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
                 1001,
                 "No content",
                 e.getMessage());
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(errorResponse);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
     @ExceptionHandler({NotFoundException.class})
