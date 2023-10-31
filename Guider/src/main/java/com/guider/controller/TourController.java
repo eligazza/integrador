@@ -39,6 +39,11 @@ public class TourController {
     }
 
     //TODO PutMapping
+    @CrossOrigin(origins = "http://localhost:8080")
+    @PutMapping
+    public ResponseEntity<TourDtoRes> changeTour(@RequestBody TourDtoReq tourDtoReq) throws DuplicatedException, InvalidArgumentException, MissingArgumentException {
+        return ResponseEntity.status(HttpStatus.OK).body(tourService.update(tourDtoReq));
+    }
 
     @CrossOrigin(origins = "http://localhost:8080")
     @DeleteMapping("/{id}")

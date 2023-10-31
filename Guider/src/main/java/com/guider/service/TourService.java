@@ -64,11 +64,34 @@ public class TourService implements IService<TourDtoReq, TourDtoRes>{
         }
     }
 
-    // TODO MODIFICAR
-    public TourDtoRes update(TourDtoReq tourDtoReq) throws InvalidArgumentException, MissingArgumentException {
+    // MODIFICAR
+        public TourDtoRes update(TourDtoReq tourDtoReq) throws  InvalidArgumentException, MissingArgumentException {
+
         validateRequest(tourDtoReq);
-        return null;
+
+        Long id_Tour = tourDtoReq.getId();
+
+        if (tourRepository.findById(id_Tour).isEmpty()) {
+            throw new MissingArgumentException("No se encontró al paciente con el ID: " + id_Tour);
+        } else {
+            Tour tourModificado = tourRepository.findById(id_Tour).get();
+            tourModificado.setCategory(tourDtoReq.getCategory());
+            tourModificado.setDescription(tourDtoReq.getDescription());
+            tourModificado.setDuration(tourDtoReq.getDuration());
+            tourModificado.setImages(tourDtoReq.getImages());
+            tourModificado.setGuide(Long.parseLong(tourDtoReq.getGuide()));
+            tourModificado.setName(tourDtoReq.getName());
+            tourModificado.setLocation(tourDtoReq.getLocation());
+            tourModificado.setPrice(tourDtoReq.getPrice());
+
+            Tour tourActualizado = tourRepository.save(tourModificado);
+            LOG.info("Tour ACTUALIZADO. " +
+                    "[ID] " + tourActualizado.getId() +
+                    "[Category]" + tourActualizado.getCategory());
+            return mapper.convertValue(tourActualizado, TourDtoRes.class);
+        }
     }
+
 
     // BORRAR
     public TourDtoRes delete(Long id) throws NotFoundException {

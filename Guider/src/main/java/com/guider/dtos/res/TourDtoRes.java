@@ -16,6 +16,7 @@ public class TourDtoRes {
     private Double price;
     private String description;
     private Double rating;
+    private String category;
     private List<String> images;
 
 }
