@@ -1,0 +1,11 @@
+version: '3'
+services:
+  react_app:
+    biuld:
+      context: .
+      dockerfile: Dockerfile.react
+    volumes: ./your-react-app:/app
+    ports:
+      - "3000:3000"
+    networks:
+      - my_network

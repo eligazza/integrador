@@ -1,0 +1,31 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: 1023c05-GRUPO2
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+    ports:
+      - "3306:3306"
+    networks:
+      - my_network
+
+  maven_app:
+    build:
+      context: .
+      dockerfile: Dockerfile.maven
+    volumes:
+      - ./Guider:/app
+    networks:
+      - my_network
+    depends_on:
+      - mysql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/1023c05-GRUPO2
+      - SPRING_DATASOURCE_USERNAME=1023c05_GRUPO2
+      - SPRING_DATASOURCE_PASSWORD=aife4Phu
+
+networks:
+  my_network:

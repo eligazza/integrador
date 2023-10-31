@@ -1,0 +1,27 @@
+# Using the amazoncorretto image as parent image
+FROM maven:3.8.4-openjdk-11 AS builder
+
+# Setting the working directory in the container
+WORKDIR /app
+
+# Copying the pom.xml and src files into the container
+COPY ./Guider/pom.xml ./Guider/src ./Guider/
+
+# Build the application with Maven
+RUN mvn -f /app/Guider/pom.xml clean package
+
+# Use an official OpenJDK runtime as a parent image
+FROM amazoncorretto:17.0.9-al2023
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the built JAR file from the builder stage
+COPY --from=builder /app/Guider/target/your-app.jar ./your-app.jar
+
+# Expose the port your application will run on
+EXPOSE 8080
+
+# Specify the command to run your application
+CMD ["java", "-jar", "your-app.jar"]
+
