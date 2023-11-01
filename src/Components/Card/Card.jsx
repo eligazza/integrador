@@ -1,11 +1,12 @@
 import React from "react";
 import { Card as Cards, CardBody, Image } from "@nextui-org/react";
 import { Link } from "react-router-dom";
-import  DetalleProducto from '../../Routes/DetalleProducto/DetalleProducto';
+import  DetalleProducto from '../.. /Routes/DetalleProducto/DetalleProducto';
 
 const Card = ({id, title, price, location, rating, images }) => {
 
   // <DetalleProducto id={id} title={title} price={price} location={location} rating={rating} images={images}/>}
+
 
    return (
     <Cards className="w-40 h-52 bg-[#F9F3DB] rounded-[17px]">

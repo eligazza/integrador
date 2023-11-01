@@ -12,38 +12,13 @@ const DetalleProducto = () => {
   const [guide, setGuides] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const [fav, setFav] = useState([1,2,3])
   const [index_fav, setIndex_fav] = useState(1);
-
-
   let index =1; 
 
-
+  
   const goBack = () => {
     navigate(-1);
   };
-
-  const setFavorite= () => { 
-    index_fav[1] = fav; 
-    if(index_fav[1]==1){
-      setFav([2, 3, 1])
-      setIndex_fav(2)
-    }else if(index_fav[2]==2){
-      setFav(3,1,2)
-      setIndex_fav(3)
-    }else{
-      setFav([1,2,3])
-      setIndex_fav(1);
-    }
-  }
-
-  const outFavorite = () => {
-    setFav([3,2,1])    
-  }
-
-  /*useEffect(()=> {
-    setFavorite()    
-  })*/
 
   useEffect(() => {
     setLoading(false);
@@ -123,7 +98,7 @@ const DetalleProducto = () => {
               alt="Card background"
               radius="none"
               className=" w-[20rem] self-center m-20 "
-              src={guide[0]?.images[0]}
+              src={tours[index]?.images[0]}
               width="100%"
             />
           </div>
@@ -147,7 +122,7 @@ const DetalleProducto = () => {
               alt="Card bac  kground"
               radius="none"
               className=" w-[10rem] rounded-3xl m-4 bg-gradient-to-r from-inherit "
-              src={guide[0]?.images[1]}
+              src={tours[index]?.images[1]}
               width="100%"
             />
             </div>
@@ -156,7 +131,7 @@ const DetalleProducto = () => {
               alt="Card background"
               radius="none"
               className=" w-[15rem] rounded-3xl m-4 "
-              src={guide[0]?.images[2]}
+              src={tours[index]?.images[2]}
               width="100%"
             />
             </div>
@@ -165,14 +140,14 @@ const DetalleProducto = () => {
               alt="Card background"
               radius="none"
               className=" w-[10rem] rounded-3xl m-4 bg-gradient-to-r from-inherit"
-              src={guide[0]?.images[3]}
+              src={tours[index]?.images[3]}
               width="100%"
             />   
             </div>
             <div className="flex-initial">
                <button
                 className="justify-item-center font-montserrat text-[24px] font-light"
-                onClick={()=>setFavorite((index_fav)=> index_fav-1)}
+                onClick={()=>setIndex_fav((index_fav)=> index_fav-1)}
                 > 
                 Counter {index_fav}
                 <img
