@@ -17,21 +17,21 @@ public class TourController {
     @Autowired
     private TourService tourService;
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://localhost:11000")
     @GetMapping()
     public ResponseEntity<List<TourDtoRes>> listAll() throws NoContentException {
         List<TourDtoRes> list = tourService.listAll();
         return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://localhost:11000")
     @GetMapping("/{id}")
     public ResponseEntity<TourDtoRes> findTour(@PathVariable Long id) throws InvalidArgumentException, MissingArgumentException, NotFoundException {
         TourDtoRes tourFounded = tourService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(tourFounded);
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://localhost:11000")
     @PostMapping()
     public ResponseEntity<TourDtoRes> saveTour(@RequestBody TourDtoReq tour) throws DuplicatedException, InvalidArgumentException, MissingArgumentException {
         TourDtoRes newTour = tourService.save(tour);
@@ -39,13 +39,13 @@ public class TourController {
     }
 
     //TODO PutMapping
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://localhost:11000")
     @PutMapping
     public ResponseEntity<TourDtoRes> changeTour(@RequestBody TourDtoReq tourDtoReq) throws DuplicatedException, InvalidArgumentException, MissingArgumentException {
         return ResponseEntity.status(HttpStatus.OK).body(tourService.update(tourDtoReq));
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://localhost:11000")
     @DeleteMapping("/{id}")
     public ResponseEntity<TourDtoRes> deleteTour(@PathVariable Long id) throws NotFoundException {
         TourDtoRes deletedTour = tourService.delete(id);
