@@ -1,10 +1,7 @@
 package com.guider.persistence.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +10,8 @@ import java.util.Collection;
 
 @Entity @Setter
 @Getter
+@Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AppUser implements UserDetails {
@@ -22,9 +21,9 @@ public class AppUser implements UserDetails {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
     private Long id;
     @Column
-    private String name;
+    private String firstName;
     @Column
-    private String username;
+    private String lastName;
     @Column
     private String email;
     @Column
@@ -32,9 +31,9 @@ public class AppUser implements UserDetails {
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
 
-    public AppUser(String name, String username, String email, String password, AppUserRole appUserRole) {
-        this.name = name;
-        this.username = username;
+    public AppUser(String firstName, String lastName, String email, String password, AppUserRole appUserRole) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
