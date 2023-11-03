@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 @Entity @Setter @Getter @NoArgsConstructor
 public class Tour {
 
@@ -17,15 +17,20 @@ public class Tour {
     @Column
     private String location;
     @Column
-    private String guide;
+    private Long guide;
     @Column
     private String duration;
     @Column
     private Double price;
-    @Column
+    @Column(length = 5000)
     private String description;
-//    @Column
-//    private Set<Image> images;
+    @Column
+    private Double rating;
+    @Column
+    private String category;
+    @Column(columnDefinition = "varbinary(2048)")
+    private List<String> images;
+
 
 }
 

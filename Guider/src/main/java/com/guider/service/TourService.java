@@ -3,17 +3,21 @@ package com.guider.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.guider.dtos.req.TourDtoReq;
 import com.guider.dtos.res.TourDtoRes;
+import com.guider.exceptions.*;
 import com.guider.persistence.entity.Tour;
 import com.guider.persistence.repository.ITourRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class TourService implements IService<TourDtoReq, TourDtoRes>{
+
+    private static final Logger LOG = LogManager.getLogger(TourService.class);
 
     @Autowired
     ITourRepository tourRepository;
@@ -22,9 +26,9 @@ public class TourService implements IService<TourDtoReq, TourDtoRes>{
     ObjectMapper mapper;
     
     // LISTAR
-    public List<TourDtoRes> listAll() throws NullPointerException {
-        if (tourRepository.findAll().size() == 0) {
-            throw new NullPointerException("Nothing here :)");
+    public List<TourDtoRes> listAll() throws NoContentException {
+        if (tourRepository.findAll().isEmpty() || tourRepository.findAll().size() == 0) {
+            throw new NoContentException("No resources found");
         } else {
             return tourRepository.findAll()
                     .stream()
@@ -34,23 +38,25 @@ public class TourService implements IService<TourDtoReq, TourDtoRes>{
     }
 
     // ENCONTRAR
-    public TourDtoRes findById(Long id) {
+    public TourDtoRes findById(Long id) throws InvalidArgumentException, NotFoundException, MissingArgumentException {
         if (id == null) {
-            throw new IllegalArgumentException("ID can't be null");
+            throw new MissingArgumentException("Please, choose a tour");
         } else if (id < 1) {
-            throw new IllegalArgumentException("ID must be greater than zero");
+            throw new InvalidArgumentException("Id must be greater than zero");
         } else if (tourRepository.findById(id).isEmpty()) {
-            throw new NullPointerException("Tour not found");
+            throw new NotFoundException("Tour id not found");
         } else {
             return mapper.convertValue(tourRepository.findById(id).get(), TourDtoRes.class);
         }
     }
 
     // GUARDAR
-    public TourDtoRes save(TourDtoReq tourDtoReq) {
+    public TourDtoRes save(TourDtoReq tourDtoReq) throws DuplicatedException, InvalidArgumentException, MissingArgumentException {
+
+        validateRequest(tourDtoReq);
 
         if (tourRepository.findByName(tourDtoReq.getName()).isPresent()) {
-            throw new NullPointerException("Tour already exists");
+            throw new DuplicatedException("There is already a tour with that exact name");
         } else {
             Tour tour = mapper.convertValue(tourDtoReq, Tour.class);
             Tour savedTour = tourRepository.save(tour);
@@ -58,21 +64,66 @@ public class TourService implements IService<TourDtoReq, TourDtoRes>{
         }
     }
 
-    // TODO MODIFICAR
-    public TourDtoRes update(TourDtoReq tourDtoReq) {
-        return null;
+    // MODIFICAR
+        public TourDtoRes update(TourDtoReq tourDtoReq) throws  InvalidArgumentException, MissingArgumentException {
+
+        validateRequest(tourDtoReq);
+
+        Long id_Tour = tourDtoReq.getId();
+
+        if (tourRepository.findById(id_Tour).isEmpty()) {
+            throw new MissingArgumentException("No se encontró al paciente con el ID: " + id_Tour);
+        } else {
+            Tour tourModificado = tourRepository.findById(id_Tour).get();
+            tourModificado.setCategory(tourDtoReq.getCategory());
+            tourModificado.setDescription(tourDtoReq.getDescription());
+            tourModificado.setDuration(tourDtoReq.getDuration());
+            tourModificado.setImages(tourDtoReq.getImages());
+            tourModificado.setGuide(Long.parseLong(tourDtoReq.getGuide()));
+            tourModificado.setName(tourDtoReq.getName());
+            tourModificado.setLocation(tourDtoReq.getLocation());
+            tourModificado.setPrice(tourDtoReq.getPrice());
+
+            Tour tourActualizado = tourRepository.save(tourModificado);
+            LOG.info("Tour ACTUALIZADO. " +
+                    "[ID] " + tourActualizado.getId() +
+                    "[Category]" + tourActualizado.getCategory());
+            return mapper.convertValue(tourActualizado, TourDtoRes.class);
+        }
     }
 
+
     // BORRAR
-    public TourDtoRes delete(Long id) {
+    public TourDtoRes delete(Long id) throws NotFoundException {
 
         if (tourRepository.findById(id).isEmpty()) {
-            throw new NullPointerException("Tour doesn't exist");
+            throw new NotFoundException("Tour not found");
         } else {
             TourDtoRes deletedTour = mapper.convertValue(tourRepository.findById(id).get(), TourDtoRes.class);
             tourRepository.deleteById(id);
             return deletedTour;
         }
+    }
+
+    private void validateRequest(TourDtoReq t) throws MissingArgumentException, InvalidArgumentException {
+
+        if (t.getName() == null || t.getName().isBlank() || t.getName().isEmpty()) {
+            throw new MissingArgumentException("Please, write a name for the tour");
+        } else if (t.getLocation() == null || t.getLocation().isBlank() || t.getLocation().isEmpty() ) {
+            throw new MissingArgumentException("Please, specify a location for the tour");
+        } else if (t.getGuide() == null || t.getGuide().isEmpty()) {
+            throw new MissingArgumentException("Every tour needs a guide");
+        } else if (t.getDuration() == null || t.getDuration().isBlank() || t.getDuration().isEmpty()) {
+            throw new MissingArgumentException("Please, specify the duration for the tour");
+        } else if (t.getDescription() == null || t.getDescription().isBlank() || t.getDescription().isEmpty()) {
+            throw new MissingArgumentException("Please, write a description for the tour");
+        } else if (t.getDescription().length() > 5000) {
+            throw new InvalidArgumentException("Keep your description short: 5000 characters or less");
+        } else if (t.getPrice() == null || t.getPrice() < 1) {
+            throw new InvalidArgumentException("Please, specify a valid price");
+        } //else if (t.getRating() == null || t.getRating() < 1) {
+            //throw new InvalidArgumentException("Please, specify a valid rating: from 1 to 5");
+        //}
     }
 
 }

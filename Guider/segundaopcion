@@ -1,0 +1,12 @@
+# Using the official image of aws based in openjdk
+FROM amazoncorretto
+LABEL authors="eligazza"
+# Setting the working directory in the container
+WORKDIR /app
+
+# Copying the JAR file into the container
+COPY /target/Guider-0.0.1-SNAPSHOT.jar .
+
+# Run the JAR file
+CMD ["java", "-jar", "Guider-0.0.1-SNAPSHOT.jar"]
+
