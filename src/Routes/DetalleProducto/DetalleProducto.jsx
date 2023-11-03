@@ -21,9 +21,12 @@ const DetalleProducto = () => {
   };
 
   useEffect(() => {
-    setLoading(false);
+    //setLoading(false);
     index = parseInt(window.location.href.slice(-2).replace(/[^a-zA-Z0-9 ]/g, ''));
+    console.log("index" + index); 
     setGuides(favoriteTours[index])
+    console.log(tours[index].images);
+    console.log(tours[index].images[1]);
     //miEvento(favoriteTours[index]);
     /*fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
         .then((response) => response.json())
@@ -109,7 +112,8 @@ const DetalleProducto = () => {
                 className="justify-item-center font-montserrat text-[24px] font-light"
                 onClick={()=>setIndex_fav((index_fav)=> index_fav+1)}
               >
-                counted {index_fav} 
+                counted {index_fav}
+                Foto {index} 
               <img
                 src="/images/angulo-izquierdo1.svg"
                 alt="Back late"
