@@ -4,7 +4,7 @@ import Footer from "../../Components/Footer/Footer";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { tours } from "../../../public/data.jsx";
-import { Select, SelectItem } from "@nextui-org/react";
+import Carousel from "../../Components/Carousel/Carousel";
 
 const DetalleProducto = () => {
   const favoriteTours = [...tours];
@@ -59,13 +59,14 @@ const DetalleProducto = () => {
             <h1 className="flex-initial font-montserrat text-[32px] font-bold ">
               {guide?.name}
             </h1>
-            <h4 className=" flex-none basis-3 font-montserrat text-[24px] text-[#FEBC14] font-bold text-center">
+            <h4 className=" flex-none basis-3 font-montserrat text-[36px] text-[#FEBC14] font-bold text-center">
               {guide?.rating}★
             </h4>
-            <div className="flex-initial flex space-x-2 mx-auto">
+
+            <div className="flex-initial flex space-x-2 mx-auto flex-nowrap">
              
               <button
-                className="justify-item-center font-montserrat text-[24px] font-light"
+                className="flex flex-1 justify-item-center font-montserrat text-[24px] font-light"
                 onClick={goBack}
               > 
               <img
@@ -73,12 +74,13 @@ const DetalleProducto = () => {
                 alt="Back late"
                 className="justify-item-center flex text-94 w-14"
               />
-              <div className="justify-item-centerflex">
+              <div className="flex flex-1 pt-4 text-[36px]">
                 {" "}
                 Atrás{" "}
                 </div>
               </button>
             </div>
+            
           </div>
           <div className="flex px-8 justify-between ">
             <div className="flex">
@@ -91,7 +93,7 @@ const DetalleProducto = () => {
                 {guide?.location}
               </h3>
             </div>
-            <h2 className="text-[#E06A00] text-[30px] font-semibold">
+            <h2 className="text-[#E06A00] text-[40px] font-semibold">
               {guide?.price}
             </h2>
           </div>
@@ -105,63 +107,11 @@ const DetalleProducto = () => {
               width="100%"
             />
           </div>
-          <div className="flex  justify-center">
+        
+          <Carousel className="flex justify-center ml-4 mt-10" images={[tours[index]?.images[1], tours[index]?.images[2], tours[index]?.images[3]] }/>
 
-            <div className="flex-initial">
-            <button
-                className="justify-item-center font-montserrat text-[24px] font-light"
-                onClick={()=>setIndex_fav((index_fav)=> index_fav+1)}
-              >
-                counted {index_fav}
-                Foto {index} 
-              <img
-                src="/images/angulo-izquierdo1.svg"
-                alt="Back late"
-                className="justify-item-center flex text-94 w-[4rem] pt-[6rem]"
-              />
-              </button>
-            </div>
-            <div className="flex-initial">
-            <img
-              alt="Card bac  kground"
-              radius="none"
-              className=" w-[10rem] rounded-3xl m-4 bg-gradient-to-r from-inherit "
-              src={tours[index]?.images[1]}
-              width="100%"
-            />
-            </div>
-            <div className="flex-initial">
-            <img
-              alt="Card background"
-              radius="none"
-              className=" w-[15rem] rounded-3xl m-4 "
-              src={tours[index]?.images[2]}
-              width="100%"
-            />
-            </div>
-            <div className="flex-initial">
-            <img
-              alt="Card background"
-              radius="none"
-              className=" w-[10rem] rounded-3xl m-4 bg-gradient-to-r from-inherit"
-              src={tours[index]?.images[3]}
-              width="100%"
-            />   
-            </div>
-            <div className="flex-initial">
-               <button
-                className="justify-item-center font-montserrat text-[24px] font-light"
-                onClick={()=>setIndex_fav((index_fav)=> index_fav-1)}
-                > 
-                Counter {index_fav}
-                <img
-                  src="/images/angulo-izquierdo2.svg"
-                  alt="Back late"
-                  className="justify-item-center flex text-94 w-[4rem] pt-[6rem]"
-                />
-              </button>
-            </div>
-          </div>
+          
+          
           <div className="flex py-10 flex-row justify-between mx-8">
             <div>
               <h2 className="flex flex-initial text-[#E06A00] font-montserrat text-[30px] font-bold py-4 w-[100%]">
