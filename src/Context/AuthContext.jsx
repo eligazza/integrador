@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react"
 import { auth } from "../firebase"
 import { users } from "../dataTest/data"
+import {CircularProgress} from "@nextui-org/react";
 
 const AuthContext = React.createContext()
 
@@ -13,6 +14,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   function signup(email, password) {
+    
     return auth.createUserWithEmailAndPassword(email, password)
   }
 
@@ -35,7 +37,6 @@ export function AuthProvider({ children }) {
   function updatePassword(password) {
     return currentUser.updatePassword(password)
   }
-
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
@@ -69,7 +70,19 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {!loading ? (children):(
+      <div className=" h-screen flex flex-col justify-center items-center">
+        <img
+        alt="Logo"
+        src="/images/Logo.png"
+        className="object-fit w-3/5"
+        />
+
+        <CircularProgress size="lg" aria-label="Loading..."/>
+      </div>
+      
+      
+      )}
     </AuthContext.Provider>
   )
 }

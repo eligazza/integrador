@@ -18,13 +18,16 @@ import {
   CardBody,
   CardFooter,
   Divider,
+  Switch,
 } from "@nextui-org/react";
-import { AlertIcon, CheckIcon } from "../../../public/icons";
+import { AlertIcon, CheckIcon } from "../../utils/icons";
 
 const SignIn = () => {
   const [inputPassword, setInputPassword] = useState(false);
   const [passwordValue, setPasswordValue] = useState("");
   const { currentUser, logout } = useAuth();
+  const [isSelected, setIsSelected] = React.useState(true);
+
   const {
     register,
     handleSubmit,
@@ -51,16 +54,16 @@ const SignIn = () => {
   };
 
   const handlePassword = (e) => {
-    setPasswordValue(e)
+    setPasswordValue(e);
     setInputPassword(true);
   };
   return (
     <div className="self-center">
       <form onSubmit={handleSubmit(signUp)}>
         <div className=" flex flex-col p-10 gap-12">
-          <Card className="max-w-[450px] py-6">
+          <Card className={ `max-w-[450px] py-6  ${isSelected? 'bg-[#F9F3DB]':"bg-[#06A77D]"}`}>
             <CardHeader className="flex flex-col">
-              <img src="/images/Logo.png" className="w-4/5 object-fit py"></img>
+              <img src="/images/Logo.png" className="w-4/5 object-fit "></img>
               <h1 className="text-2xl font-semibold text-center pt-8 text-[#B185A8]">
                 Registrarse
               </h1>
@@ -109,15 +112,51 @@ const SignIn = () => {
                 <div className="border-gray border-2 rounded-md">
                   <p>La contraseña debe contener:</p>
                   <div className="flex flex-row gap-1 pl-4">
-                    <p className={passwordValue.length<6 ? ("text-danger"):("text-success")}>{passwordValue.length<6 ? <AlertIcon/> : <CheckIcon/>}</p>
-                    <p className={passwordValue.length<6 ? ("text-danger"):("text-success")}> Al menos 6 letras</p>
+                    <p
+                      className={
+                        passwordValue.length < 6
+                          ? "text-danger"
+                          : "text-success"
+                      }
+                    >
+                      {passwordValue.length < 6 ? <AlertIcon /> : <CheckIcon />}
+                    </p>
+                    <p
+                      className={
+                        passwordValue.length < 6
+                          ? "text-danger"
+                          : "text-success"
+                      }
+                    >
+                      {" "}
+                      Al menos 6 letras
+                    </p>
                   </div>
                   <div className="flex flex-row gap-1 pl-4">
-                    <p className={!/\d/.test(passwordValue) ? ("text-danger"):("text-success")}>{!/\d/.test(passwordValue) ? <AlertIcon/> : <CheckIcon/>}</p>
-                    <p className={!/\d/.test(passwordValue) ? ("text-neutral-500"):("text-neutral-400")}> Algun numero (0-9) </p>
+                    <p
+                      className={
+                        !/\d/.test(passwordValue)
+                          ? "text-danger"
+                          : "text-success"
+                      }
+                    >
+                      {!/\d/.test(passwordValue) ? (
+                        <AlertIcon />
+                      ) : (
+                        <CheckIcon />
+                      )}
+                    </p>
+                    <p
+                      className={
+                        !/\d/.test(passwordValue)
+                          ? "text-neutral-500"
+                          : "text-neutral-400"
+                      }
+                    >
+                      {" "}
+                      Algun numero (0-9){" "}
+                    </p>
                   </div>
-
-                  
                 </div>
               )}
               <Input
@@ -156,6 +195,9 @@ const SignIn = () => {
                   placeholder: "text-[#B185A8]",
                 }}
               />
+              <Switch isSelected={isSelected} onValueChange={setIsSelected}>
+                {isSelected  ? <p>Quiero conocer!</p> : <p>Quiero ser Guider!</p>}
+              </Switch>
             </CardBody>
             <CardFooter>
               <Button

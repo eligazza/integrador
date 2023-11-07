@@ -2,9 +2,9 @@ import React from "react";
 import { Card as Cards, CardBody, Image } from "@nextui-org/react";
 
 
-const Card = ({ title, price, location, rating, images, url }) => {
+const Card = ({ title, price, location, rating, images, id }) => {
   return (
-    <Cards isPressable className="w-40 h-52 bg-[#F9F3DB] rounded-[17px]" onPress={() => console.log(key)} key={url}>
+    <Cards isPressable className="w-40 h-52 bg-[#F9F3DB] rounded-[17px]" onPress={() => window.location.href =`producto/${id}`} key={id}>
       <Image
         alt="Card background"
         radius="none"

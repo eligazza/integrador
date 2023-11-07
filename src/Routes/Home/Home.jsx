@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import Card from "../../Components/Card/Card";
@@ -7,9 +7,23 @@ import { Input } from "@nextui-org/react";
 import { countries, category, list, tours } from "../../dataTest/data.jsx";
 import { Select, SelectItem } from "@nextui-org/react";
 import { Pagination, Button, Image, Skeleton } from "@nextui-org/react";
-import { CalendarIcon, LocationIcon, SearchIcon } from "../../../public/icons.jsx";
+import { CalendarIcon, LocationIcon, SearchIcon } from "../../utils/icons.jsx";
+
+
+import axios from "axios";
 
 const Home = () => {
+  const [tourss, setTourss] = useState (null)
+  const tourGet = async () => {
+    try{
+      const data = await axios.get("http://api.guider.com.ar:11000/tours")
+      setTourss(data.data);
+      //console.log(data.data)
+    } catch (error){
+      console.log(error.response.data)
+    }
+  };
+
   const [currentPage, setCurrentPage] = React.useState(1);
 
   const shuffledTours = [...tours].sort(() => Math.random() - 0.5);
@@ -18,13 +32,17 @@ const Home = () => {
     .slice(0, 4);
 
   const itemsPerPage = 10; // Cantidad de tours por página
+  useEffect(() => {
+    // Llamar a tourGet cuando se renderiza la página
+    tourGet();
+  }, []);
 
   return (
-    <main>
+    <div>
       <Header />
-      <body className=" relative flex flex-col justify-center">
+
+      <div className=" relative flex flex-col justify-center">
         <img
-          removeWrapper
           alt="Card background"
           className="z-0 top-0 w-full  object-fit absolute h-[700px]"
           src="/images/background2.png"
@@ -136,11 +154,12 @@ const Home = () => {
           Todos nuestros tours
         </h2>
         <div className="flex flex-row flex-wrap gap-8 justify-center">
-          {shuffledTours
+          {tourss && tourss
             .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
             .map((tour) => (
               <Card
                 key={tour.id}
+                id={tour.id}
                 title={tour.name}
                 price={tour.price}
                 location={tour.location}
@@ -160,9 +179,10 @@ const Home = () => {
           page={currentPage}
           onChange={setCurrentPage}
         />
-      </body>
+      </div>
+      
       {<Footer />}
-    </main>
+    </div>
   );
 };
 

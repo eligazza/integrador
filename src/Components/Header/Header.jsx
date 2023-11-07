@@ -7,7 +7,6 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-
 } from "@nextui-org/react";
 
 import {
@@ -19,13 +18,16 @@ import {
   Link,
   Chip,
 } from "@nextui-org/react";
-import { AccountIcon, HamburgerIcon, LogInIcon, CreateAccountIcon } from "../../../public/icons.jsx";
+import {
+  AccountIcon,
+  HamburgerIcon,
+  LogInIcon,
+  CreateAccountIcon,
+} from "../../utils/icons.jsx";
 
 const Header = () => {
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
-  console.log(currentUser);
-
   function stringToColor(string) {
     let hash = 0;
     let i;
@@ -59,11 +61,84 @@ const Header = () => {
       await logout();
       window.location.href = "/";
       history.push("/login");
-      
     } catch {
       setError("Failed to log out");
     }
   }
+
+  const adminOptions = () => {
+    return (
+      <DropdownSection
+        showDivider
+        title={"Sector administrativo"}
+        classNames={{ heading: "pl-4" }}
+      >
+        <DropdownItem
+          key="agregarCategoria"
+          href="/admin/agregarcategoria"
+          className="text-black"
+          as={Link}
+        >
+          Agregar categoria
+        </DropdownItem>
+        <DropdownItem
+          key="editarUsuario"
+          href="/admin/editarusuario"
+          as={Link}
+          className="text-black"
+        >
+          Editar Usuarios
+        </DropdownItem>
+      </DropdownSection>
+    );
+  };
+
+  const prinOptions = () => {
+    return (
+      <DropdownSection showDivider>
+        <DropdownItem key="profile" className="h-14 gap-2">
+          <p className="font-semibold text-center">Bienvenido!</p>
+          <p className="font-semibold text-center">{currentUser.displayName}</p>
+        </DropdownItem>
+        <DropdownItem
+          key="perfil"
+          startContent={<AccountIcon />}
+          href="/perfil"
+          className="text-black"
+          as={Link}
+        >
+          Mi perfil
+        </DropdownItem>
+      </DropdownSection>
+    );
+  };
+
+  const guiderOptions = () => {
+    return (
+      <DropdownSection
+        showDivider
+        title={"Soy Guider!"}
+        classNames={{ heading: "pl-4" }}
+      >
+        <DropdownItem
+          key="cargarTour"
+          href="/admin/cargar"
+          className="text-black"
+          as={Link}
+        >
+          Cargar un tour
+        </DropdownItem>
+        <DropdownItem
+          key="editarTours"
+          href="/admin/editar"
+          className="text-black"
+          as={Link}
+        >
+          Editar mis tours
+        </DropdownItem>
+      </DropdownSection>
+    );
+  };
 
   return (
     <header className="sticky top-0 w-full bg-orange-200 flex justify-between items-center h-[75px] z-50 ">
@@ -93,7 +168,7 @@ const Header = () => {
                     as="button"
                     name={currentUser?.displayName}
                     description={
-                      <Link as="button" onPress={handleLogout}>
+                      <Link onPress={handleLogout}>
                         <Chip
                           size="sm"
                           variant="bordered"
@@ -110,34 +185,11 @@ const Header = () => {
                   />
                 </DropdownTrigger>
                 <DropdownMenu aria-label="Profile Actions" variant="flat">
-                  <DropdownItem key="profile" className="h-14 gap-2">
-                    <p className="font-semibold text-center">Bienvenido!</p>
-                    <p className="font-semibold text-center">
-                      {currentUser.displayName}
-                    </p>
-                  </DropdownItem>
-                  <DropdownItem
-                    key="perfil"
-                    startContent={<AccountIcon />}
-                    href="/perfil"
-                    as={Link}
-                    className="text-black"
-                  >
-                    Mi perfil
-                  </DropdownItem>
+                  {prinOptions()}
                   {currentUser.role == "guider" ||
-                    currentUser.role == "admin" && (
-                      <DropdownItem
-                        key="cargarTour"
-                        
-                        href="/admin/cargar"
-                        as={Link}
-                        className="text-black"
-                      >
-                        Cargar un tour
-                      </DropdownItem>
-                    )}
-                   
+                    currentUser.role == "admin" ? guiderOptions(): null}
+
+                  {currentUser?.role === "admin" && adminOptions()}
                   <DropdownItem
                     key="logout"
                     className="text-danger"
@@ -205,53 +257,12 @@ const Header = () => {
                 </DropdownMenu>
               ) : (
                 <DropdownMenu aria-label="Profile Actions" variant="flat">
-                  <DropdownSection showDivider>
-                  <DropdownItem>
-                    <User
-                      isFocusable
-                      as="button"
-                      name={currentUser?.displayName}
-                      description={
-                        <Chip
-                          size="sm"
-                          variant="bordered"
-                          className="text-[10px] h-5  border-[#06A77D] text-[#06A77D] font-semibold"
-                        >
-                          {currentUser.role}
-                        </Chip>
-                      }
-                      avatarProps={{
-                        name: stringAvatar(currentUser?.displayName),
-                        className: `bg-[#06A77D] font-black text-[16px] text-white`,
-                      }}
-                    />
-                  </DropdownItem>
-                  </DropdownSection>
-  
-                  <DropdownItem
-                    key="perfil"
-                    startContent={<AccountIcon />}
-                    href="/perfil"
-                    as={Link}
-                    className="text-black"
-                  >
-                    Mi perfil
-                  </DropdownItem>
-                  {currentUser?.role == "guider" ||
-                    currentUser?.role == "admin" && (
-                      <DropdownSection showDivider>
-                      <DropdownItem
-                        key="cargarTour"
-                        
-                        href="/admin/cargar"
-                        as={Link}
-                        className="text-black"
-                      >
-                        Cargar un tour
-                      </DropdownItem>
-                      </DropdownSection>
-                    )}
-                  
+                  {prinOptions()}
+                  {currentUser.role == "guider" ||
+                    currentUser.role == "admin" ? guiderOptions(): null}
+
+                  {currentUser?.role === "admin" && adminOptions()}
+
                   <DropdownItem
                     key="logout"
                     className="text-danger"
@@ -260,8 +271,6 @@ const Header = () => {
                   >
                     Cerrar Sesion
                   </DropdownItem>
-                  
-
                 </DropdownMenu>
               )}
             </Dropdown>

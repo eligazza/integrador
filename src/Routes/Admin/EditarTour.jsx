@@ -1,15 +1,16 @@
-import React from "react";
-import { useRef, ChangeEvent, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
+import SigIn from "../../Components/auth/signIn";
 import { Input, Textarea } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { category, countries, list } from "../../dataTest/data";
 import { useForm } from "react-hook-form";
 import { uploadCloudinary } from "../../uploadCloudinary";
+import { useParams } from "react-router-dom";
 import axios from "axios";
+import { TrashIcon, XIcon } from "../../utils/icons";
 import { Card, CardBody, CardHeader, Image, Button } from "@nextui-org/react";
-import { CheckIcon, TrashIcon, XIcon } from "../../utils/icons";
 import {
   Modal,
   ModalContent,
@@ -18,26 +19,39 @@ import {
   ModalFooter,
   useDisclosure,
 } from "@nextui-org/react";
-const CargarTour = () => {
-  const [ok, setOk] = useState (false)
-  const [fail, setFail] = useState (false)
+
+const EditarTour = () => {
+  const [isLoading ,setIsLoading] = useState(true)
+  const { id } = useParams();
+  const [tour, setTour] = useState(null);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [images, setImages] = useState([]);
   const [url, setUrl] = useState("");
 
-  console.log(images);
+  const tourGet = async () => {
+    try {
+      const data = await axios.get(`http://api.guider.com.ar:11000/tours/${id}`);
+      setTour(data.data);
+      console.log(data.data.images)
+  
+      
+      setImages(data.data.images)
+      //console.log(tour);
+      
+    } catch (error) {
+      //console.log(data)
+      console.log(error);
+    }
+    finally{
+      setIsLoading(false)
+    }
+  };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    mode: "onBlur",
-    defaultValues: {
-      rating: 0,
-      guide: 1,
-    },
-  });
+
+  useEffect(() => {
+    tourGet();
+    
+  }, []);
 
   const tourSubmit = async (form) => {
     try {
@@ -50,44 +64,41 @@ const CargarTour = () => {
 
       form.images = url;
 
-      const data = await axios.post("http://api.guider.com.ar:11000/tours", form);
+      const data = await axios.post("http://localhost:8080/tours", form);
       console.log(data);
     } catch (error) {
-      if(error){
-        console.log("ok")
-        setOk(true)
-      }
-      else{
-        console.log(error.response.data);
-        console.log("fail")
-        setFail(true)
-      }
-      
-      
-      
-    }
-  
-    finally{
+      console.log(error.response.data);
       onOpen();
     }
   };
+  function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+  //console.log(images);
 
-  const handleImageDelete = (index) => {
-    const newImages = [...images];
-    newImages.splice(index, 1);
-    setImages(newImages);
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      ...tour,
+    },
+  });
 
   return (
     <div className="h-screen flex flex-col justify-between">
       <Header />
+      {!isLoading&&
       <form onSubmit={handleSubmit(tourSubmit)}>
         <div className=" hidden lg:flex flex-col p-10 gap-12">
-          <h1 className="text-2xl font-semibold text-center">Cargar Tour</h1>
+          <h1 className="text-2xl font-semibold text-center">Modificar Tour</h1>
 
           <div className="flex flex-wrap justify-evenly overflow-hidden  ">
             <div className="w-2/5 flex flex-col gap-8">
               <Input
+                value={tour?.name}
                 type="text"
                 label="Nombre del Tour"
                 labelPlacement="outside"
@@ -107,6 +118,7 @@ const CargarTour = () => {
               />
               <div className="flex gap-12">
                 <Input
+                value={tour?.duration}
                   type="text"
                   label="Duracion"
                   labelPlacement="outside"
@@ -134,6 +146,7 @@ const CargarTour = () => {
                   labelPlacement="outside"
                   placeholder="0.00"
                   color="warning"
+                  value={tour?.price}
                   {...register("price")}
                   classNames={{
                     label: "text-[#B185A8] ",
@@ -155,6 +168,8 @@ const CargarTour = () => {
                 labelPlacement="outside"
                 className="max-w-xs"
                 color="warning"
+                defaultSelectedKeys={[tour?.location]}
+                value={[tour?.location]}
                 disableSelectorIconRotation
                 {...register("location")}
                 classNames={{
@@ -180,7 +195,7 @@ const CargarTour = () => {
                     value={countries.value}
                     className=""
                   >
-                    {countries.label}
+                    {countries.value}
                   </SelectItem>
                 ))}
               </Select>
@@ -191,7 +206,8 @@ const CargarTour = () => {
                 className="max-w-xs"
                 disableSelectorIconRotation
                 color="warning"
-                {...register("category")}
+                defaultSelectedKeys={[tour?.category]}
+                value={tour?.category}
                 classNames={{
                   label: "text-[#B185A8] ",
                   input: ["text-[#B185A8]", "placeholder:text-[#B185A8]"],
@@ -202,7 +218,7 @@ const CargarTour = () => {
               >
                 {category.map((category) => (
                   <SelectItem key={category.value} value={category.value}>
-                    {category.label}
+                    {category.value}
                   </SelectItem>
                 ))}
               </Select>
@@ -215,6 +231,7 @@ const CargarTour = () => {
                 labelPlacement="outside"
                 placeholder="Ingrese una descripcion detallada de su tour"
                 {...register("description")}
+                value={tour?.description}
                 classNames={{
                   label: "text-[#B185A8] ",
                   input: [
@@ -233,13 +250,12 @@ const CargarTour = () => {
                   <Card shadow="sm" key={index} className="w-[100px]">
                     <CardHeader className="absolute z-10 top-0 left-11 flex-col !items-start">
                       <Button
-                        
                         isIconOnly
                         className="bg-[#dc3545] text-white"
                         size="sm"
                         onClick={() => handleImageDelete(index)}
                       >
-                        <TrashIcon/>
+                        <TrashIcon />
                       </Button>
                     </CardHeader>
                     <CardBody className="overflow-visible p-0">
@@ -247,7 +263,7 @@ const CargarTour = () => {
                         shadow="sm"
                         radius="lg"
                         className="z-0 w-full h-full object-cover"
-                        src={URL.createObjectURL(image)}
+                        src={(image)}
                       />
                     </CardBody>
                   </Card>
@@ -272,16 +288,17 @@ const CargarTour = () => {
           <Button
             type="submit"
             size="sm"
-            className="w-[50px] self-center bg-[#E06A00] text-white"
+            className="w-[100px] self-center bg-[#E06A00] text-white"
           >
-            Subir Tour
+            Modificar Tour
           </Button>
         </div>
       </form>
+    }
       <>
         <Modal
           backdrop="transparent"
-          isOpen={isOpen  && fail}
+          isOpen={isOpen}
           onOpenChange={onOpenChange}
           placement="top"
           isDismissable={false}
@@ -290,53 +307,23 @@ const CargarTour = () => {
             body: "py-6",
             backdrop: "bg-[#292f46]/50 backdrop-opacity-40",
             base: "border-[#292f46] bg-[#dc3545] dark:bg-[#19172c] text-[#a8b0d3]",
+            //header: "bg-danger text-white",
+            //footer: "border-t-[1px] border-[#292f46]",
+            //closeButton: "hover:bg-white/5 active:bg-white/10",
           }}
         >
           <ModalContent>
             {(onClose) => (
               <>
-             
-                  <div className="flex ">
-                    <div className="bg-[#dc3545] h-fill  w-1/12 text-white font-black border border-[#dc3545] flex items-center justify-center">
-                     <XIcon className="p-auto" />
-                    </div>
-                    <div className="bg-[#fff1f1] w-11/12 border border-[#dc3545] text-[#dc3545] p-2">
-                      <h1>Ups!</h1>
-                      <p className="text-sm">Parece que tuvimos un problema</p>
-                    </div>
+                <div className="flex ">
+                  <div className="bg-[#dc3545] h-fill  w-1/12 text-white font-black border border-[#dc3545] flex items-center justify-center">
+                    <XIcon className="p-auto" />
                   </div>
-            
-              </>
-            )}
-          </ModalContent>
-        </Modal>
-        <Modal
-          backdrop="transparent"
-          isOpen={isOpen && ok}
-          onOpenChange={onOpenChange}
-          placement="top"
-          isDismissable={false}
-          radius="none"
-          classNames={{
-            body: "py-6",
-            backdrop: "bg-[#292f46]/50 backdrop-opacity-40",
-            base: "border-[#292f46] bg-[#28a745] dark:bg-[#19172c] text-[#a8b0d3]",
-          }}
-        >
-          <ModalContent>
-            {(onClose) => (
-              <>
-             
-                  <div className="flex ">
-                    <div className="bg-[#28a745] h-fill  w-1/12 text-white font-black border border-[#28a745] flex items-center justify-center">
-                     <CheckIcon className="p-auto" />
-                    </div>
-                    <div className="bg-[#e5f4e8] w-11/12 border border-[#28a745] text-[#28a745] p-2">
-                      <h1>Okay!</h1>
-                      <p className="text-sm">Su tour se ha subido sin problemas</p>
-                    </div>
+                  <div className="bg-[#fff1f1] w-11/12 border border-[#dc3545] text-[#dc3545] p-2">
+                    <h1>Ups!</h1>
+                    <p className="text-sm">Parece que tuvimos un problema</p>
                   </div>
-            
+                </div>
               </>
             )}
           </ModalContent>
@@ -344,7 +331,8 @@ const CargarTour = () => {
       </>
       <Footer />
     </div>
+   
   );
 };
 
-export default CargarTour;
+export default EditarTour;
