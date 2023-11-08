@@ -61,7 +61,12 @@ const SignIn = () => {
     <div className="self-center">
       <form onSubmit={handleSubmit(signUp)}>
         <div className=" flex flex-col p-10 gap-12">
-          <Card className={ `max-w-[450px] py-6  ${isSelected? 'bg-[#F9F3DB]':"bg-[#06A77D]"}`}>
+          <Card className={ `max-w-[450px]  ${isSelected? 'bg-[#F9F3DB]':"bg-[#06A77D]"}`}>
+            {isSelected ?
+            <img 
+            src="/images/tourist.jpg" className="absolute w-full h-full object-cover opacity-25  "
+            />:
+            <img src="/images/guider.jpg" className="absolute w-full h-full object-cover opacity-25  "/>}
             <CardHeader className="flex flex-col">
               <img src="/images/Logo.png" className="w-4/5 object-fit "></img>
               <h1 className="text-2xl font-semibold text-center pt-8 text-[#B185A8]">
