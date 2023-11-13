@@ -22,7 +22,7 @@ const Carousel = ({ images }) => {
 
   return (
     <div className="overflow-visible flex items-center space-x-2 text-base mx-auto py-10 justify-center">
-      <div className="flex justify-center ">
+      <div className="flex justify-center pl-[20rem]">
         
         <div className="flex-initial">
           <div
@@ -38,15 +38,15 @@ const Carousel = ({ images }) => {
         </div>
 
         <div className="flex-initial">
-            <img key={currentIndex} src={images[currentIndex]} className="w-[10rem] rounded-3xl m-4 bg-gradient-to-r from-inherit" />            
+            <img key={currentIndex} src={images[(currentIndex)%3]} className="w-[10rem] rounded-3xl m-4 bg-gradient-to-r from-inherit" />            
         </div>
 
         <div className="flex-initial">
-            <img key={currentIndex} src={images[currentIndex+1]} className="w-[15rem] rounded-3xl m-4 " />
+            <img key={currentIndex} src={images[(currentIndex+1)%3]} className="w-[15rem] rounded-3xl m-4 " />
         </div>
 
         <div className="flex-initial">
-            <img key={currentIndex} src={images[currentIndex+2]} className="w-[10rem] rounded-3xl m-4 bg-gradient-to-r from-inherit" />
+            <img key={currentIndex} src={images[(currentIndex+2)%3]} className="w-[10rem] rounded-3xl m-4 bg-gradient-to-r from-inherit" />
         </div>
 
         
