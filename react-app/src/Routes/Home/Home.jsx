@@ -7,6 +7,11 @@ import { Input } from "@nextui-org/react";
 import { countries, category, list, tours } from "./data";
 import { Select, SelectItem } from "@nextui-org/react";
 import { Pagination, Button, Image } from "@nextui-org/react";
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { useState } from "react";
+import { es } from "date-fns/locale";
+
 
 const Home = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -16,6 +21,16 @@ const Home = () => {
     .slice(0, 4);
 
   const itemsPerPage = 6; // Cantidad de tours por página
+  const [date, setDate] = useState(new Date());
+  const [startDate, setStartDate] = useState()
+  const [endDate, setEndDate] = useState();
+
+  const handleChange = (range) => {
+    const [startDate, endDate] = range;
+    setStartDate(startDate);
+    setEndDate(endDate);
+  };
+
 
   return (
     <main>
@@ -86,9 +101,9 @@ const Home = () => {
               </Button>
             </div>
             <div className="flex self-center bg-[#F9F3DB] p-2 rounded-[12px] gap-2">
-              <Input
+                <Input
                 label="Fecha"
-                type="date"
+                type="Text"
                 placeholder="¿En qué fecha?"
                 className="max-w-xs w-[225px]"
                 startContent={
@@ -107,7 +122,31 @@ const Home = () => {
                     />
                   </svg>
                 }
-              />
+                
+              >
+               
+              </Input>
+              
+    
+ 
+              
+              <DatePicker 
+                  selected={startDate}
+                  onChange={handleChange}
+                  showPreviousMonths
+                  startDate={startDate}
+                  endDate={endDate}
+                  locale={es}
+                        
+                  selectsRange
+                  showTimeSelect
+                  minTime={new Date(0, 0, 0, 12, 30)}
+                  maxTime={new Date(0, 0, 0, 19, 0)}
+                  dateFormat="MMMM d, yyyy h:mmaa"
+                  monthsShown={2}
+                  withPortal
+
+              /> 
               <Button isIconOnly className="bg-[#E06A00] text-white h-18 w-20">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
