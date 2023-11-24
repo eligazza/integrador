@@ -101,13 +101,12 @@ const Home = () => {
               </Button>
             </div>
             <div className="flex self-center bg-[#F9F3DB] p-2 rounded-[12px] gap-2">
-                <Input
-                label="Fecha"
-                type="Text"
-                placeholder="¿En qué fecha?"
-                className="max-w-xs w-[225px]"
-                startContent={
-                  <svg
+                
+              <div className="ml-1 pl-4 bg-[white] max-w-xs w-[225px] rounded-lg01">
+                <div className="font-montserrat text-[12px] font-light">Fecha</div>
+                <div className="flex  ">
+
+                <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -121,15 +120,8 @@ const Home = () => {
                       d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"
                     />
                   </svg>
-                }
-                
-              >
-               
-              </Input>
-              
-    
- 
-              
+                  <div className="pl-2">¿En qué fecha?</div>
+              </div>
               <DatePicker 
                   selected={startDate}
                   onChange={handleChange}
@@ -145,8 +137,13 @@ const Home = () => {
                   dateFormat="MMMM d, yyyy h:mmaa"
                   monthsShown={2}
                   withPortal
+                  isClearable={true}
+                  className="text-[10px] font-light"
+                  showYearDropdown
+                  scrollableMonthYearDropdown
 
               /> 
+              </div>
               <Button isIconOnly className="bg-[#E06A00] text-white h-18 w-20">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
